@@ -25,11 +25,12 @@ function gerarId(jogos) {
 
 router.get('/', (req, res) => {
     let jogos = lerJogos();
-    const { nome, categoria, plataforma } = req.query; // <--Novo
+    const {nome, categoria, plataforma, nota_min} = req.query; // <--Novo
 
     if (nome) jogos = jogos.filter(j => j.nome.toLowerCase().includes(nome.toLowerCase()));
-    if (categoria) jogos = jogos.filter(j => categoria.toLowerCase() === categoria.toLowerCase());
+    if (categoria) jogos = jogos.filter(j => j.categoria.toLowerCase() === categoria.toLowerCase());
     if (plataforma) jogos = jogos.filter(j => j.plataforma.toLowerCase() === plataforma.toLowerCase());
+    if (nota_min) jogos = jogos.filter(j => j.nota >= Number(nota_min));
     res.json(jogos);
 });
 
